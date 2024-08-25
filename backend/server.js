@@ -5,6 +5,7 @@ const connectDB = require("./config/db");
 const homeRoutes = require("./routes/routes");
 const authRoutes = require("./routes/authRoutes");
 const protectRoutes = require("./routes/protectRoutes");
+const semesterRoutes = require("./routes/semesterRoutes");
 const { crossOrigin } = require("./middlewares/corsMiddleware");
 const path = require("path");
 
@@ -17,6 +18,7 @@ crossOrigin(app);
 app.use("/api", homeRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/protect", protectRoutes);
+app.use("/api/semester", semesterRoutes);
 
 const __dirname1 = path.resolve();
 
