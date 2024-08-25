@@ -7,7 +7,7 @@ import { VerificationForm } from "@/components/VerificationForm";
 import { Toaster } from "@/components/ui/toaster";
 import PrivateRoute from "@/components/PrivateRoute";
 import VerifiedRoute from "@/components/VerifiedRoute";
-import ProtectedComp from "@/components/ProtectedComp";
+import Home from "@/components/home/Home";
 import ChangeEmailVerification from "@/components/ChangeEmailVerification";
 import ForgetPwd from "@/components/ForgetPwd";
 import ResetPwd from "@/components/ResetPwd";
@@ -37,7 +37,7 @@ function App() {
               path="/email/verify/:token"
               element={<ChangeEmailVerification />}
             />
-            <Route path="/home" element={<ProtectedComp />} />
+            <Route path="/home" element={<Home />} />
           </Route>
         </Route>
       </Routes>
