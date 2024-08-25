@@ -24,7 +24,7 @@ function App() {
   }, [navigate, user]);
 
   return (
-    <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
+    <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
       <Header />
       <Routes>
         <Route path="/password/verify/:email/:token" element={<ResetPwd />} />

@@ -33,8 +33,8 @@ const Header = () => {
           to="/"
           className="flex items-center gap-2 text-lg font-semibold md:text-base"
         >
-          MERN
-          <span className="sr-only">MERN</span>
+          GPA
+          <span className="sr-only">GPA</span>
         </Link>
         {/* <Link
           to="/"
@@ -50,14 +50,21 @@ const Header = () => {
             <span className="sr-only">Toggle navigation menu</span>
           </Button>
         </SheetTrigger>
+          <Link
+            to="/"
+            className="flex items-center gap-2 text-lg font-semibold md:hidden"
+          >
+            GPA
+            <span className="sr-only">GPA</span>
+          </Link>
         <SheetContent side="left">
           <nav className="grid gap-6 text-lg font-medium">
             <Link
               to="/"
               className="flex items-center gap-2 text-lg font-semibold"
             >
-              MERN
-              <span className="sr-only">MERN</span>
+              GPA
+              <span className="sr-only">GPA</span>
             </Link>
             <Link
               to="#"
