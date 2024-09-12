@@ -6,6 +6,7 @@ const homeRoutes = require("./routes/routes");
 const authRoutes = require("./routes/authRoutes");
 const protectRoutes = require("./routes/protectRoutes");
 const semesterRoutes = require("./routes/semesterRoutes");
+const gradeRoutes = require("./routes/gradeRoutes");
 const { crossOrigin } = require("./middlewares/corsMiddleware");
 const path = require("path");
 
@@ -19,6 +20,7 @@ app.use("/api", homeRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/protect", protectRoutes);
 app.use("/api/semester", semesterRoutes);
+app.use("/api/grade", gradeRoutes);
 
 const __dirname1 = path.resolve();
 

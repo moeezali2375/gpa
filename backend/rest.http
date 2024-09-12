@@ -1,5 +1,5 @@
 @url=http://localhost:4000/api
-@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2Y2IzM2FjYmNhOTM3NTRhMjhiMzQ4YiIsImlhdCI6MTcyNDU5MzA3MCwiZXhwIjoxNzI0Njc5NDcwfQ.TRViOy5n1uoEJDWMp9ecaXC1pubyMemu8Xz2QtnuRoE
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2Y2IzM2FjYmNhOTM3NTRhMjhiMzQ4YiIsImlhdCI6MTcyNjEzMDYyMywiZXhwIjoxNzI2MjE3MDIzfQ.H5oTaK19SgMzmmnUeDTOJxE89dJhb0QhLHwBzprsJyU
 
 ### ? API
 GET {{url}}
@@ -116,3 +116,22 @@ Content-Type: application/json
         {"name": "PDC", "credits": 3, "grade": "A+"}
     ]
 }
+
+### ? GRADES /
+GET {{url}}/grade
+Authorization: Bearer {{token}}
+
+### ? GRADES / UPDATE
+PUT {{url}}/grade
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "grade": {
+    "A+": 4.0
+    }
+}
+
+### ? GRADES / RESTORE
+PUT {{url}}/grade/restore HTTP/1.1
+Authorization: Bearer {{token}}

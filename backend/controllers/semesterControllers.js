@@ -11,8 +11,9 @@ const getSemesters = async (req, res) => {
 
 const addSemester = async (req, res) => {
   try {
-    const { number, desc } = req.body;
+    const { _id, number, desc } = req.body;
     const semester = new Semester({
+      _id: _id,
       number: Number(number),
       desc: desc,
       userId: req.user._id,
@@ -76,6 +77,7 @@ const updateSemesterCourses = async (req, res) => {
     res.status(400).send({ msg: { title: error.message } });
   }
 };
+
 module.exports = {
   getSemesters,
   addSemester,
