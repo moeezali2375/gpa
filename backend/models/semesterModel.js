@@ -5,8 +5,14 @@ const semesterSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  desc: {
-    type: String,
+  season: {
+    type: Number,
+    required: true,
+    enum: [1, 2, 3, 4],
+  },
+  year: {
+    type: Number,
+    required: true,
   },
   courses: [CourseSchema],
   userId: {

@@ -1,5 +1,5 @@
 @url=http://localhost:4000/api
-@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2Y2IzM2FjYmNhOTM3NTRhMjhiMzQ4YiIsImlhdCI6MTcyNjEzMDYyMywiZXhwIjoxNzI2MjE3MDIzfQ.H5oTaK19SgMzmmnUeDTOJxE89dJhb0QhLHwBzprsJyU
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MTkwNTMwMjkxOWNkNTRlMGIyYzU1NyIsImlhdCI6MTczNzE2MTU0OSwiZXhwIjoxNzM3MjQ3OTQ5fQ.XLmeg7frGqlZMwVpHx4AUmoN_my4iqsED2McxChPA-A
 
 ### ? API
 GET {{url}}
@@ -23,7 +23,7 @@ GET {{url}}/auth/token/verify/regenerate
 Authorization: Bearer {{token}}
 
 ### ? AUTH / LOGIN
-POST {{url}}/auth/login 
+POST {{url}}/auth/login
 Content-Type: application/json
 
 {
@@ -135,3 +135,14 @@ Content-Type: application/json
 ### ? GRADES / RESTORE
 PUT {{url}}/grade/restore HTTP/1.1
 Authorization: Bearer {{token}}
+
+### STALK
+POST {{url}}/stalk
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "rollNo": 1220218908,
+    "semID": 20243,
+    "campID": 12
+}

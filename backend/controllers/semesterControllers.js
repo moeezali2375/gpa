@@ -11,11 +11,12 @@ const getSemesters = async (req, res) => {
 
 const addSemester = async (req, res) => {
   try {
-    const { _id, number, desc } = req.body;
+    const { _id, number, season, year } = req.body;
     const semester = new Semester({
       _id: _id,
-      number: Number(number),
-      desc: desc,
+      number: parseInt(number),
+      season: parseInt(season),
+      year: parseInt(year),
       userId: req.user._id,
     });
     await semester.save();
@@ -44,17 +45,28 @@ const deleteSemester = async (req, res) => {
 
 const updateSemester = async (req, res) => {
   try {
-    const { number } = req.body;
+    const { number, season, year } = req.body;
     const semesterId = req.params.semesterId;
+
+    const updateFields = {};
+    if (number !== undefined) updateFields.number = parseInt(number);
+    if (season !== undefined) updateFields.season = parseInt(season);
+    if (year !== undefined) updateFields.year = parseInt(year);
+
     const data = await Semester.findOneAndUpdate(
       {
         userId: req.user._id,
         _id: semesterId,
       },
-      { number: Number(number) }
+      updateFields,
+      { new: true },
     );
+
     if (!data) throw new Error("Invalid Request. ☹️");
-    return res.status(200).send({ noti: "Done." });
+
+    return res.status(200).send({
+      msg: { title: "Semester Updated! 🎉", desc: "Continue Planning...." },
+    });
   } catch (error) {
     res.status(400).send({ msg: { title: error.message } });
   }
@@ -69,7 +81,7 @@ const updateSemesterCourses = async (req, res) => {
         _id: semesterId,
         userId: req.user._id,
       },
-      { courses: courses }
+      { courses: courses },
     );
     if (!data) throw new Error("Invalid Request. ☹️");
     return res.status(200).send({ noti: "Done." });
