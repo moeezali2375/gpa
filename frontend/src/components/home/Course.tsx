@@ -15,30 +15,16 @@ import {
 import { Trash } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-const Course = ({ course, courseArray, setCourseArray }) => {
+const Course = ({ course, handleDeleteCourse, handleUpdateCourses }) => {
   const [name, setName] = useState(course.name);
   const [credits, setCredits] = useState(course.credits);
   const [grade, setGrade] = useState(course.grade);
+  const courseId = course._id;
 
   useEffect(() => {
-    if (!name || !credits || !grade) return;
-    const handleDebounce = setTimeout(() => {
-      const newCourseArray = [...courseArray];
-      newCourseArray[course._id - 1].name = name;
-      newCourseArray[course._id - 1].credits = credits;
-      newCourseArray[course._id - 1].grade = grade;
-      setCourseArray(newCourseArray);
-    }, 2000);
-    return () => {
-      clearTimeout(handleDebounce);
-    };
+    handleUpdateCourses(courseId, name, credits, grade);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [name, credits, grade]);
-
-  const handleDelete = () => {
-    const newCourseArray = courseArray.filter((cr) => course._id !== cr._id);
-    setCourseArray(newCourseArray);
-  };
+  }, [name, credits, grade, courseId]);
 
   return (
     <TableRow>
@@ -53,16 +39,21 @@ const Course = ({ course, courseArray, setCourseArray }) => {
         />
       </TableCell>
       <TableCell>
-        <Label htmlFor="credits" className="sr-only">
-          Credits
-        </Label>
-        <Input
-          id="credits"
-          type="number"
-          className="w-[50px]"
-          value={credits}
-          onChange={(e) => setCredits(Number(e.target.value))}
-        />
+        <Select
+          value={credits.toString()}
+          onValueChange={(value) => setCredits(Number(value))}
+        >
+          <SelectTrigger className="w-[60px]">
+            <SelectValue placeholder="-" />
+          </SelectTrigger>
+          <SelectContent>
+            {[...Array(7).keys()].map((i) => (
+              <SelectItem key={i} value={i.toString()}>
+                {i}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       </TableCell>
       <TableCell>
         <Select value={grade} onValueChange={setGrade}>
@@ -87,7 +78,7 @@ const Course = ({ course, courseArray, setCourseArray }) => {
         </Select>
       </TableCell>
       <TableCell className="text-right">
-        <Button variant="link" onClick={handleDelete}>
+        <Button variant="link" onClick={() => handleDeleteCourse(courseId)}>
           <Trash size={16} />
         </Button>
       </TableCell>

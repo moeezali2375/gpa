@@ -17,37 +17,41 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import mongoose from "mongoose";
+import {
+  getSemesterNumbers,
+  getSemesterSeason,
+  getYears,
+  SeasonOptions,
+} from "@/utils/semesterUtils";
+import { getCurrentYear } from "@/utils/commonUtils";
 
-const getYears = () => {
-  const currentYear = new Date().getFullYear();
-  const yearsArray = [];
+const AddSemester = ({ semesterLength, handleAddSemester }) => {
+  const [number, setNumber] = useState((semesterLength + 1).toString());
+  const [season, setSeason] = useState(getSemesterSeason());
+  const [year, setYear] = useState(getCurrentYear());
 
-  for (let i = currentYear - 6; i <= currentYear + 6; i++) {
-    yearsArray.push(i);
-  }
-  return yearsArray;
-};
+  useEffect(() => {
+    setNumber((semesterLength + 1).toString());
+  }, [semesterLength]);
 
-const AddSemester = ({ semesters, setSemesters }) => {
-  const [number, setNumber] = useState(null);
-  const [session, setSession] = useState(null);
-  const [year, setYear] = useState(null);
-
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
     if (!number) return;
     const newSemester = {
-      _id: semesters.length + 1,
-      name: "Semester " + number,
-      desc: session ? session + (year ? " " + year : "") : year ? year : "",
+      _id: new mongoose.Types.ObjectId().toString(),
+      number: parseInt(number),
+      season: SeasonOptions[season],
+      year: parseInt(year),
       courses: [],
     };
-    setSemesters([...semesters, newSemester]);
-    setNumber(null);
-    setSession(null);
-    setYear(null);
+
+    handleAddSemester(newSemester);
+    setNumber((parseInt(number) + 1).toString());
   };
+
   return (
     <Card
       x-chunk="dashboard-07-chunk-2"
@@ -60,43 +64,44 @@ const AddSemester = ({ semesters, setSemesters }) => {
         <CardContent>
           <div className="grid gap-6 sm:grid-cols-3">
             <div className="grid gap-3">
-              <Label htmlFor="number">Number</Label>
+              <Label htmlFor="semesterNumber">Number</Label>
               <Select required={true} value={number} onValueChange={setNumber}>
                 <SelectTrigger id="semesterNumber" aria-label="Semester Number">
-                  <SelectValue placeholder="-" />
+                  <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  {Array.from({ length: 11 }, (_, index) => index + 1).map(
-                    (number) => (
-                      <SelectItem value={number.toString()} key={number}>
-                        {number.toString()}
-                      </SelectItem>
-                    )
-                  )}
+                  {getSemesterNumbers().map((number: number) => (
+                    <SelectItem value={number.toString()} key={number}>
+                      {number.toString()}
+                    </SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
             </div>
             <div className="grid gap-3">
-              <Label htmlFor="session">Session (optional)</Label>
-              <Select value={session} onValueChange={setSession}>
-                <SelectTrigger id="session" aria-label="Select Session">
-                  <SelectValue placeholder="Select Session" />
+              <Label htmlFor="season">Season</Label>
+              <Select value={season} onValueChange={setSeason}>
+                <SelectTrigger id="season" aria-label="Select Season">
+                  <SelectValue placeholder="Select Season" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem key={1} value="Fall">
-                    Fall
+                  <SelectItem key={1} value="Spring">
+                    Spring
                   </SelectItem>
                   <SelectItem key={2} value="Summer">
                     Summer
                   </SelectItem>
-                  <SelectItem key={3} value="Spring">
-                    Spring
+                  <SelectItem key={3} value="Fall">
+                    Fall
+                  </SelectItem>
+                  <SelectItem key={4} value="Winter">
+                    Winter
                   </SelectItem>
                 </SelectContent>
               </Select>
             </div>
             <div className="grid gap-3">
-              <Label htmlFor="year">Year (optional)</Label>
+              <Label htmlFor="year">Year</Label>
               <Select value={year} onValueChange={setYear}>
                 <SelectTrigger id="year" aria-label="Select Year">
                   <SelectValue placeholder="Select Year" />
@@ -118,7 +123,7 @@ const AddSemester = ({ semesters, setSemesters }) => {
             size="sm"
             variant="ghost"
             className="gap-1"
-            disabled={number ? false : true}
+            disabled={number && season && year ? false : true}
           >
             <PlusCircle className="h-3.5 w-3.5" />
             Add Semester

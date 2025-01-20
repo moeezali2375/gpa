@@ -13,6 +13,7 @@ import ForgetPwd from "@/components/ForgetPwd";
 import ResetPwd from "@/components/ResetPwd";
 import { useEffect } from "react";
 import useUser from "@/context/User/UserHook";
+import SemestersProvider from "./context/Semester/SemesterProvider";
 
 function App() {
   const { user } = useUser();
@@ -37,7 +38,14 @@ function App() {
               path="/email/verify/:token"
               element={<ChangeEmailVerification />}
             />
-            <Route path="/home" element={<Home />} />
+            <Route
+              path="/home"
+              element={
+                <SemestersProvider>
+                  <Home />
+                </SemestersProvider>
+              }
+            />
           </Route>
         </Route>
       </Routes>
