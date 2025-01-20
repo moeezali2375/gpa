@@ -7,6 +7,7 @@ const authRoutes = require("./routes/authRoutes");
 const protectRoutes = require("./routes/protectRoutes");
 const semesterRoutes = require("./routes/semesterRoutes");
 const gradeRoutes = require("./routes/gradeRoutes");
+const stalkRoutes = require("./routes/stalkRoutes");
 const { crossOrigin } = require("./middlewares/corsMiddleware");
 const path = require("path");
 
@@ -21,6 +22,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/protect", protectRoutes);
 app.use("/api/semester", semesterRoutes);
 app.use("/api/grade", gradeRoutes);
+app.use("/api/stalk", stalkRoutes);
 
 const __dirname1 = path.resolve();
 

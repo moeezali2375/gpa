@@ -16,6 +16,7 @@ import { Dialog } from "@/components/ui/dialog";
 import { useState } from "react";
 import EmailDialog from "@/components/EmailDialog";
 import PasswordDialog from "@/components/PasswordDialog";
+import Stalk from "./home/Stalk";
 
 const Header = () => {
   const { user, logout } = useUser();
@@ -50,13 +51,13 @@ const Header = () => {
             <span className="sr-only">Toggle navigation menu</span>
           </Button>
         </SheetTrigger>
-          <Link
-            to="/"
-            className="flex items-center gap-2 text-lg font-semibold md:hidden"
-          >
-            GPA
-            <span className="sr-only">GPA</span>
-          </Link>
+        <Link
+          to="/"
+          className="flex items-center gap-2 text-lg font-semibold md:hidden"
+        >
+          GPA
+          <span className="sr-only">GPA</span>
+        </Link>
         <SheetContent side="left">
           <nav className="grid gap-6 text-lg font-medium">
             <Link
@@ -78,6 +79,7 @@ const Header = () => {
 
       <div className="flex w-full justify-end items-center gap-4">
         <div className="relative">
+          <Stalk />
           <ModeToggle />
           {user && (
             <>

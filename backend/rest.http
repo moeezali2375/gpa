@@ -1,5 +1,5 @@
 @url=http://localhost:4000/api
-@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MTkwNTMwMjkxOWNkNTRlMGIyYzU1NyIsImlhdCI6MTczNzE2MTU0OSwiZXhwIjoxNzM3MjQ3OTQ5fQ.XLmeg7frGqlZMwVpHx4AUmoN_my4iqsED2McxChPA-A
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MTkwNTMwMjkxOWNkNTRlMGIyYzU1NyIsImlhdCI6MTczNzMwMTk0NywiZXhwIjoxNzM3Mzg4MzQ3fQ.CrziK4Axmg5YcfC88wFwEXosnWhIJ2-zyAVHudMU3QU
 
 ### ? API
 GET {{url}}
@@ -85,8 +85,9 @@ Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-    "number":"2",
-    "desc":"Summer 2024"
+    "number": 2,
+    "year": 2024,
+    "season": 3
 }
 
 ### ? SEMESTER / :ID /
@@ -101,7 +102,8 @@ Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-    "number":"2"
+    "number":4,
+    "season":2
 }
 
 ### ? SEMESTER / :ID / COURSE
