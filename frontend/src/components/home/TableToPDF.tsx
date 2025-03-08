@@ -6,6 +6,7 @@ import {
   View,
   StyleSheet,
   PDFDownloadLink,
+  // BlobProviderParams,
 } from "@react-pdf/renderer";
 
 // Define the styles for the PDF
@@ -18,7 +19,6 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   table: {
-    display: "table",
     width: "auto",
     margin: "10px 0",
   },
@@ -27,7 +27,8 @@ const styles = StyleSheet.create({
   },
   tableCell: {
     padding: 8,
-    border: "1px solid #ddd",
+    borderWidth: 1,
+    borderColor: "#ddd",
     textAlign: "center",
   },
   headerCell: {
@@ -36,7 +37,31 @@ const styles = StyleSheet.create({
   },
 });
 
-const Table = ({ semesters, gpaArray }) => (
+interface Course {
+  _id: string;
+  name: string;
+  credits: number;
+  grade: string;
+}
+
+interface Semester {
+  number: number;
+  season: string;
+  year: number;
+  courses: Course[];
+}
+
+interface GPA {
+  sgpa: string;
+  cgpa: string;
+}
+
+interface TableProps {
+  semesters: Semester[];
+  gpaArray: GPA[];
+}
+
+const Table: React.FC<TableProps> = ({ semesters, gpaArray }) => (
   <View style={styles.table}>
     <View style={styles.tableRow}>
       <Text style={[styles.tableCell, styles.headerCell]}>Semester</Text>
@@ -49,7 +74,7 @@ const Table = ({ semesters, gpaArray }) => (
       <Text style={[styles.tableCell, styles.headerCell]}>CGPA</Text>
     </View>
     {semesters.map((semester, idx) => {
-      const gpa = gpaArray[idx] || { sgpa: "N/A", cgpa: "N/A" }; // Get GPA for the current semester
+      const gpa = gpaArray[idx] || { sgpa: "N/A", cgpa: "N/A" };
       return (
         <React.Fragment key={semester.number}>
           {semester.courses.map((course, i) => (
@@ -78,7 +103,12 @@ const Table = ({ semesters, gpaArray }) => (
   </View>
 );
 
-const MyDocument = ({ semesters, gpaArray }) => (
+interface MyDocumentProps {
+  semesters: Semester[];
+  gpaArray: GPA[];
+}
+
+const MyDocument: React.FC<MyDocumentProps> = ({ semesters, gpaArray }) => (
   <Document>
     <Page style={styles.page}>
       <View style={styles.section}>
@@ -91,8 +121,12 @@ const MyDocument = ({ semesters, gpaArray }) => (
   </Document>
 );
 
-// Component to trigger PDF download
-const TableToPDF = ({ semesters, gpaArray }) => {
+interface TableToPDFProps {
+  semesters: Semester[];
+  gpaArray: GPA[];
+}
+
+const TableToPDF: React.FC<TableToPDFProps> = ({ semesters, gpaArray }) => {
   return (
     <div>
       <h2>Generate PDF with Semester Information</h2>
@@ -100,7 +134,9 @@ const TableToPDF = ({ semesters, gpaArray }) => {
         document={<MyDocument semesters={semesters} gpaArray={gpaArray} />}
         fileName="semester_report.pdf"
       >
-        {({ loading }) => (loading ? "Loading document..." : "Download PDF")}
+        {/* {(params: BlobProviderParams) => */}
+        {/*   params.loading ? "Loading document..." : "Download PDF" */}
+        {/* } */}
       </PDFDownloadLink>
     </div>
   );

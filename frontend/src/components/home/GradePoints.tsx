@@ -27,11 +27,11 @@ import {
 } from "@/components/ui/alert-dialog";
 
 import { Button } from "@/components/ui/button";
-import useSemesters from "@/context/Semester/SemesterHook";
-import GradePointsType from "@/types/gradePointsType";
+// import useSemesters from "@/context/Semester/SemesterHook";
+// import GradePointsType from "@/types/gradePointsType";
 
 const GradePoints = () => {
-  const { grades } = useSemesters();
+  // const { grades } = useSemesters();
   return (
     <Card
       x-chunk="dashboard-07-chunk-1"
