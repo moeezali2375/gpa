@@ -6,6 +6,8 @@ import SemesterType from "@/types/semester";
 import { useEffect, useState } from "react";
 import CourseType from "@/types/course";
 import { SeasonOptions } from "@/utils/semesterUtils";
+import TargetGPA from "./TargetGPA";
+import PriorSemesterGPA from "./PriorSemesterGPA";
 
 const Main = () => {
   const { semesters, setSemesters, setIsLoading, grades } = useSemesters();
@@ -151,6 +153,8 @@ const Main = () => {
               semesterLength={semesters.length}
               handleAddSemester={handleAddSemester}
             />
+            <TargetGPA gpaArray={gpaArray} />
+            <PriorSemesterGPA gpaArray={gpaArray} />
           </div>
         </div>
       </main>
