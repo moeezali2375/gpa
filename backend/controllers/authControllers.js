@@ -21,7 +21,8 @@ const sendEmailNotification = async (to, subject, message) => {
   try {
     await sendEmail(to, subject, message);
   } catch (error) {
-    res.status(500).send({ msg: { title: error.message } });
+    console.error(error);
+    throw new Error("Error sending email.");
   }
 };
 
@@ -211,7 +212,7 @@ const changeEmail = async (req, res) => {
         await sendEmailNotification(
           user.newEmail,
           message.subject,
-          message.body
+          message.body,
         );
 
         res.status(200).send({
