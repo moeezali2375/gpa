@@ -83,3 +83,6 @@ coverage/
 # Others
 *.tgz
 *.gz
+
+logs/
+*.log
