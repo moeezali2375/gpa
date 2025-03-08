@@ -26,6 +26,21 @@ app.use("/api/stalk", stalkRoutes);
 
 const __dirname1 = path.resolve();
 
+if (process.env.NODE_ENV === "production") {
+  app.use(
+    express.static(path.join(path.dirname(__dirname1), "frontend", "dist")),
+  );
+  app.get("*", (req, res) => {
+    res.sendFile(
+      path.resolve(path.dirname(__dirname1), "frontend", "dist", "index.html"),
+    );
+  });
+} else {
+  app.get("/", (req, res) => {
+    res.send("API is up and running!");
+  });
+}
+
 app.get("*", (req, res) => res.redirect("/api"));
 
 const PORT = process.env.PORT;

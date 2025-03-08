@@ -17,4 +17,5 @@ const crossOrigin = (app) => {
     );
   }
 };
+
 module.exports = { crossOrigin };
